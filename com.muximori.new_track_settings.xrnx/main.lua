@@ -6,6 +6,7 @@ local options = renoise.Document.create("NewTrackSettingsPreferences") {
   volume_column_visible = true,
   panning_column_visible = false,
   delay_column_visible = false,
+  sample_effects_column_visible = false,
   notifier_enabled = true
 }
 renoise.tool().preferences = options
@@ -16,6 +17,7 @@ local function apply_options(track)
     track.volume_column_visible   = options.volume_column_visible.value
     track.panning_column_visible  = options.panning_column_visible.value
     track.delay_column_visible    = options.delay_column_visible.value
+    track.sample_effects_column_visible = options.sample_effects_column_visible.value
   end
 end
 
@@ -82,7 +84,8 @@ local track_preferences_gui_entries = {
   },
   BooleanPickerEntry{label = "volume column", target_observable = options.volume_column_visible},
   BooleanPickerEntry{label = "delay column", target_observable = options.delay_column_visible},
-  BooleanPickerEntry{label = "panning column", target_observable = options.panning_column_visible}
+  BooleanPickerEntry{label = "panning column", target_observable = options.panning_column_visible},
+  BooleanPickerEntry{label = "samplefx column", target_observable = options.sample_effects_column_visible}
 }
 
 local track_preferences_dialog = PickerDialog{
