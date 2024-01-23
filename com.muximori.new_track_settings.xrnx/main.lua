@@ -66,22 +66,29 @@ end)
 
 
 local track_preferences_gui_entries = {
-  ValueBoxPickerEntry(
-    "visible effect columns",
-    options.visible_effect_columns,
-    0,
-    8,
-    {1,2}
-  ),
-  BooleanPickerEntry("volume column", options.volume_column_visible),
-  BooleanPickerEntry("delay column",  options.delay_column_visible),
-  BooleanPickerEntry("panning column", options.panning_column_visible),
+  --ValueBoxPickerEntry(
+  --  "visible effect columns",
+  --  options.visible_effect_columns,
+  --  0,
+  --  8,
+  --  {1,2}
+  --),
+  ValueBoxPickerEntry{
+    label = "visible effect columns", 
+    target_observable = options.visible_effect_columns, 
+    min = 0,
+    max = 8, 
+    steps = {1,2}
+  },
+  BooleanPickerEntry{label = "volume column", target_observable = options.volume_column_visible},
+  BooleanPickerEntry{label = "delay column", target_observable = options.delay_column_visible},
+  BooleanPickerEntry{label = "panning column", target_observable = options.panning_column_visible}
 }
 
-local track_preferences_dialog = PickerDialog(
-  "new track preferences",
-  track_preferences_gui_entries
-)
+local track_preferences_dialog = PickerDialog{
+  title = "new track preferences",
+  picker_entries = track_preferences_gui_entries
+}
 local function show_preference_gui()
   track_preferences_dialog:show()
 end

@@ -8,9 +8,9 @@ local CONTROL_SPACING = renoise.ViewBuilder.DEFAULT_CONTROL_SPACING
 
 class 'PickerEntry'
   --we need an observable, and a label
-  function PickerEntry:__init(label, target_observable)
-    self.label = label
-    self.target_observable = target_observable
+  function PickerEntry:__init(arg)
+    self.label = arg.label
+    self.target_observable = arg.target_observable
     self.view = vb:column{style="invisible"}
     self._row = vb:horizontal_aligner{
       margin = CONTROL_MARGIN, 
@@ -18,7 +18,7 @@ class 'PickerEntry'
       vb:text{
         width = LABEL_WIDTH,
         align = "left",
-        text = label
+        text = self.label
       }
     }
     self.view:add_child(self._row)
@@ -34,11 +34,11 @@ class 'PickerEntry'
   end
 
 class 'BooleanPickerEntry'(PickerEntry)
-  function BooleanPickerEntry:__init(label, target_observable)
-    PickerEntry.__init(self, label, target_observable)
+  function BooleanPickerEntry:__init(arg)
+    PickerEntry.__init(self, arg)
     --TODO: assert observable is bool
     self._control = vb:checkbox{
-      bind = target_observable
+      bind = self.target_observable
     }
     self._row:add_child(self._control)
   end
@@ -56,11 +56,12 @@ class 'BooleanPickerEntry'(PickerEntry)
   end
 
 class 'ValueBoxPickerEntry'(PickerEntry)
-  function ValueBoxPickerEntry:__init(label, target_observable, min, max, steps)
-    PickerEntry.__init(self, label, target_observable)
-    self.min = min
-    self.max = max
-    self.steps = steps
+  --{label, target_observable, min, max, steps}
+  function ValueBoxPickerEntry:__init(arg)
+    PickerEntry.__init(self, arg)
+    self.min = arg.min
+    self.max = arg.max
+    self.steps = arg.steps
     self._control = vb:valuebox {
       bind = self.target_observable, 
       min = self.min, 
@@ -86,16 +87,17 @@ class 'ValueBoxPickerEntry'(PickerEntry)
 
 
 class 'PickerDialog'
-  function PickerDialog:__init(title, picker_entries)
-    self.title = title
+  -- {title, picker_entries}
+  function PickerDialog:__init(arg)
+    self.title = arg.title
     self.dialog_content = vb:column {
       margin = DIALOG_MARGIN,
       spacing = DIALOG_SPACING,
       uniform = true
     }
     self.bound_values = {}
-    self.picker_entries = picker_entries
-    for i, picker_entry in ipairs(picker_entries) do
+    self.picker_entries = arg.picker_entries
+    for i, picker_entry in ipairs(self.picker_entries) do
       self.dialog_content:add_child(picker_entry.view)
     end
     self.focus_index = 1
