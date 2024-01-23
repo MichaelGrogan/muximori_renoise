@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RenoiseScriptingTool doc_version="0">
+  <ApiVersion>6.1</ApiVersion>
+  <Id>com.muximori.new_track_settings</Id>
+  <Version>1.0.0</Version>
+  <Author>Muximori</Author>
+  <Name>new_track_settings</Name>
+  <Category>Pattern Editor</Category>
+  <Description>
+    Adds a preferences dialog to customise the visible columns in newly created tracks. 
+    This panel may be accessed in two ways:
+    - A menu entry (Tools -> New Track Preferences)
+    - A keybind (Pattern Editor -> Track Control -> New Track Preferences)
+
+    When you create a new track, these preferences will be applied. 
+
+    The preference dialog can be controlled by keyboard. Use the up and down arrow keys
+    to select an option, and the left and right arrow keys to change values. 
+  </Description>
+  <Homepage></Homepage>
+</RenoiseScriptingTool>
